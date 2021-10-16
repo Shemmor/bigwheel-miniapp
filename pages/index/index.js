@@ -139,8 +139,12 @@ Page({
       setTimeout(function () {
         // 随机一个奖品
         var prizeIndex = utils.getRandom(slicePrizes.length - 1);
+        // console.log(prizeIndex)
+        //奖品数量
+        var prizeCounts = slicePrizes.length;
+        // console.log(prizeCounts)
         // 计算奖品角度
-        animation.stopTo(prizeIndex);
+        animation.stopTo(prizeIndex,prizeCounts);
       }, 3000);
     }
   }
