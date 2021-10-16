@@ -1,3 +1,32 @@
+## 更新 已解决指针位置计算错误
+1、index.js在调用抽奖停止函数时传入奖品数组的长度
+
+// 模拟后台返回数据
+setTimeout(function () {
+// 随机一个奖品
+var prizeIndex = utils.getRandom(slicePrizes.length - 1);
+// console.log(prizeIndex)
+//奖品数量
+var prizeCounts = slicePrizes.length;
+// console.log(prizeCounts)
+// 计算奖品角度
+animation.stopTo(prizeIndex,prizeCounts);
+}, 3000);
+
+2、改变Animation.js的stopTo方法
+
+Animation.prototype.stopTo = function (prizeIndex,prizeCounts) {
+var wheel = this.circle;
+var angle = wheel.angle;
+
+var offset = (360/prizeCounts)/2; //应该是 (360/转盘奖品数量)/2
+
+this.minAngle = prizeIndex * angle + offset;
+this.maxAngle = prizeIndex * angle + angle;
+this.prize = wheel.slicePrizes[prizeIndex];
+};
+
+
 ## 前言
 大转盘营销活动大家应该都不陌生那如何用小程序实现呢？
 第一个版本的大转盘都是用图片做的，奖品等信息都是不无法修改的，说白了就是没啥实际用途，作者我就直接用canvas撸了一个全手工绘制的大转盘分享给大家。此处应有掌声 : )
