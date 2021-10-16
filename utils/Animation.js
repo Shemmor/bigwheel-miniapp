@@ -123,10 +123,10 @@ Animation.prototype.update = function () {
   }
 };
 
-Animation.prototype.stopTo = function (prizeIndex) {
+Animation.prototype.stopTo = function (prizeIndex,prizeCounts) {
   var wheel = this.circle;
   var angle = wheel.angle;
-  var offset = utils.getRandom(angle / 2);
+  var offset = (360/prizeCounts)/2;
   this.minAngle = prizeIndex * angle + offset;
   this.maxAngle = prizeIndex * angle + angle;
   this.prize = wheel.slicePrizes[prizeIndex];
